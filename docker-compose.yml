@@ -1,0 +1,31 @@
+version: '3.3'
+
+services:
+
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: R00t!
+    ports:
+      - '27017:27017'
+
+  php-apache:
+    container_name: php-apache
+    build:
+      context: ./php
+    environment:
+      - DB_CONNECTION=mongodb
+      - DB_HOST=mongo
+      - DB_PORT=27017
+      - DB_DATABASE=bdbook
+      - DB_USERNAME=root
+      - DB_PASSWORD=R00t!
+    ports:
+        - '8080:80'
+    volumes:
+      - ./src:/var/www/bdbook
+      - ./apache:/etc/apache2/sites-enabled
+    depends_on:
+      - mongo
