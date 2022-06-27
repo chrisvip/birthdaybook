@@ -27,9 +27,9 @@ API
 ---
 To add a birthday through API endpoint::
     
-    curl http://localhost:8080/api/birthdays/add -d "name=Frank&birthdate=2000-01-01&tz=America/New_York"
+    curl http://localhost:8080/api/birthdays/add -d "name=Frank&birthdate=2000-01-01&tz=America/New_York" | jq
 
 
 To retrieve a list of birthdays::
 
-    curl http://localhost:8080/api/birthdays
+    curl http://localhost:8080/api/birthdays | jq
