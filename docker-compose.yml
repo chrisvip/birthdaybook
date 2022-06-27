@@ -11,7 +11,7 @@ services:
     ports:
       - '27017:27017'
 
-  php-apache:
+  app:
     container_name: app
     build:
       context: ./src
@@ -30,6 +30,10 @@ services:
     ports:
         - '8080:80'
     volumes:
-      - ./src:/app
+      - ./src/app:/app/app
+      - ./src/resources:/app/resources
+      - ./src/routes:/app/routes
+      - ./src/database:/app/database
+      - ./src/config:/app/config
     depends_on:
       - mongo
