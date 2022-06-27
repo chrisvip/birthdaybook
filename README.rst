@@ -11,13 +11,13 @@ Must have the following installed:
 
 To run
 ------
-To bring the service up, run the following command and wait until you see the word `READY!`::
+To bring the service up, run the following command::
     
-    docker-compose up --build
+    docker-compose up -d --build
 
-To run tests, run the following command in a new terminal::
+To run tests::
 
-    docker-compose exec php-apache php artisan test
+    docker-compose exec app php artisan test
 
 Web UI
 ------

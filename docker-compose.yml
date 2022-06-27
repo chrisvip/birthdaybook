@@ -12,14 +12,15 @@ services:
       - '27017:27017'
 
   php-apache:
-    container_name: php-apache
+    container_name: app
     build:
-      context: ./php
+      context: ./src
     environment:
       - APP_NAME=Birthday Book
       - APP_ENV=local
       - APP_DEBUG=true
       - APP_URL=http://localhost
+      - APP_KEY=base64:3UBZXVVVX4AzMpQGDL1SVKket2bGAMHrSpglcIqhW54=
       - DB_CONNECTION=mongodb
       - DB_HOST=mongo
       - DB_PORT=27017
@@ -29,7 +30,6 @@ services:
     ports:
         - '8080:80'
     volumes:
-      - ./src:/var/www/bdbook
-      - ./apache:/etc/apache2/sites-enabled
+      - ./src:/app
     depends_on:
       - mongo
