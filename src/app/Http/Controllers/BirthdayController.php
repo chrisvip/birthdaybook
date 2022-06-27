@@ -29,17 +29,12 @@ class BirthdayController extends Controller
         $tz = new DateTimeZone($input['tz'] ?? 'America/Los_Angeles');
         $now = new DateTime($input['now'] ?? 'now', $tz);
 
-        // $tillAnniversary=new TimeTillAnniversary('7/27/2020', 'America/Los_Angeles', $now);
-        // return json_encode([
-        //     $tillAnniversary->ageAtAnniversary(), str($tt), $tt->raw()
-        // ]);
-
-
         $birthdays = Birthdays::select('name', 'birthdate', 'tz')->paginate(50);
 
         foreach ($birthdays as $birthday) {
             $tillAnniversary = new TimeTillAnniversary($birthday->birthdate, $birthday->tz, $now);
-
+            $birthday['isBirthday'] = $tillAnniversary->isToday();
+            $birthday['interval'] = $tillAnniversary->raw();
             $birthday['message'] = $birthday->name . ' is ' . $tillAnniversary->ageAtAnniversary()
                 . ' years old ' . str($tillAnniversary);
         }

@@ -21,44 +21,7 @@
         </style>
         
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        
-        <script>
-            $(function(){
-                function loadBirthdays() {
-                    $.ajax({
-                        url: '/api/birthdays?tz=America/Los_Angeles',
-                        success: function(res) {
-                            $('.birthdays').empty();
-                            $.each(res['data'], function($_, birthday){
-                                $('.birthdays').append(
-                                    $('<div>')
-                                        .append($('<span>').html(birthday['message'])));
-                            })
-                        }
-                    })
-                }
-
-                $('form').submit(function(e){
-                    e.preventDefault();
-                    $.ajax({
-                        url: '/api/birthdays/add',
-                        method: 'post',
-                        data: $(this).serialize(),
-                        success: function(res){
-                            if (res.success) {
-                                loadBirthdays();
-                                alert('Added 👍');
-                            } else {
-                                console.error('Error adding birthday: ', res.errors);
-                                alert('Failed 🥲 [see console for details]');
-                            }
-                        }
-                    })
-                });
-
-                loadBirthdays();
-            });
-        </script>
+        <script src="{{ url('assets/js/birthdays.js') }}"></script>
     </head>
     <body class="antialiased">
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
